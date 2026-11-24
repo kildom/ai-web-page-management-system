@@ -1,0 +1,13 @@
+{
+  "name": "test-web-ui-ai",
+  "version": "1.0.0",
+  "description": "",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@openhands/agent-canvas": "^1.16.0"
+  }
+}
