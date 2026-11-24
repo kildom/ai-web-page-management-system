@@ -29,6 +29,7 @@ Osoba, która potrafi opisać, jaką stronę chce mieć, ale nie chce samodzieln
 ### Zasady interfejsu
 
 - Interfejs koncentruje się na rozmowie i aktualnym podglądzie witryny.
+- Użytkownik może podawać agentowi prompty głosowo, zamiast wpisywać je na klawiaturze.
 - Kod, struktura katalogów, logi techniczne i terminal nie są widoczne w zwykłym przepływie użytkownika.
 - Agent rozmawia o potrzebach, treści, odbiorcach, stylu i wyglądzie strony, a nie o szczegółach implementacyjnych.
 - Agent zadaje pytania, gdy potrzebuje decyzji użytkownika. Aplikacja może prezentować je jako tekst, wybór spośród opcji, próbki obrazów, selektor kolorów, wybór stylu lub pola do uzupełnienia treści.
@@ -94,9 +95,9 @@ Nie każde narzędzie musi być MCP. Operacje na workspace, komunikacja z GUI, z
 
 ## 4. Model projektu witryny
 
-Projekt użytkownika składa się z witryn statycznych. Strona wynikowa może być złożona z jednego lub wielu fragmentów HTML umieszczanych w szablonie.
+Projekt użytkownika składa się z witryn statycznych. Strona wynikowa może być złożona z jednego lub wielu fragmentów HTML umieszczanych w szablonie. Szablony również mogą składać się ze współdzielonych fragmentów: np. szablon strony głównej i szablony podstron mogą wykorzystywać ten sam fragment nagłówka i stopki. System budowania scala te elementy, aby wytworzyć kompletne strony statyczne.
 
-- **Szablon** to pełna strona HTML zawierająca nazwane placeholdery przeznaczone do wypełnienia treścią lub fragmentami.
+- **Szablon** to układ pełnej strony HTML z nazwanymi placeholderami na wspólne fragmenty, treść i elementy strony.
 - **Fragment** to wielokrotnie używalny albo specyficzny dla strony fragment HTML, np. galeria, hero, karta, sekcja kontaktowa czy nawigacja.
 - **Strona** wiąże odpowiedni szablon z zestawem fragmentów i treścią.
 - **System budowania** scala szablony i fragmenty, a następnie wytwarza pliki statyczne gotowe do podglądu i publikacji.
@@ -110,6 +111,7 @@ Witryna może mieć różne typy stron, np. osobny szablon strony głównej i po
 Model powinien rozróżniać:
 
 - współdzielone elementy całej witryny, np. nagłówek, stopkę, nawigację, kolory i typografię;
+- współdzielone fragmenty składane w wielu szablonach od fragmentów specyficznych dla pojedynczego szablonu lub strony;
 - niezależne typy stron, np. stronę główną i typową podstronę;
 - szablony pochodne i ich jawne nadpisania;
 - zmiany lokalne, które mają dotyczyć tylko konkretnej strony.
@@ -269,10 +271,11 @@ Potencjalnym wyróżnikiem projektu jest połączenie łatwego, konwersacyjnego 
 - czy aplikacja hosta będzie pośredniczyć w wywołaniach API, aby klucz nie trafiał do gościa;
 - katalog dostępnych metod i usług publikacji oraz sposób przechowywania poświadczeń;
 - sposób prezentowania widoku strony i formularzy pytań w GUI;
+- sposób obsługi promptów głosowych: rozpoznawanie mowy lokalnie czy przez usługę zewnętrzną, obsługiwane języki, wymagane zgody i sposób informowania o przetwarzaniu głosu;
 - sposób mapowania tekstu edytowanego w podglądzie na źródło projektu (szablon, fragment lub treść strony), zwłaszcza dla tekstów generowanych lub współdzielonych, oraz obsługa konfliktów z równoległymi zmianami agenta;
 - format trwałej wiedzy agenta o projekcie i sposób jej aktualizacji;
 - interfejs API pomiędzy GUI a agentem oraz wybór transportu (np. REST lub WebSocket); SDK samo nie dostarcza gotowego serwera REST;
-- szczegółowy schemat danych szablonów, fragmentów, zależności, wariantów i nadpisań;
+- szczegółowy schemat danych szablonów, zagnieżdżonych i współdzielonych fragmentów, zależności, wariantów i nadpisań, w tym reguły składania i wykrywania cykli;
 - reguły i zakres automatycznych testów budowania, responsywności i interakcji;
 - granice snapshotu, obsługa nieudanej lub częściowej iteracji oraz ewentualne odtwarzanie poprzedniej publikacji;
 - limity prób oraz obsługa błędu w workflow lokalizacji;
