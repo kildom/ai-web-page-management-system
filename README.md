@@ -111,7 +111,9 @@ System budowania może dodatkowo wygenerować skompresowaną bazę danych zawier
 
 Lepszym alternatywnym rozwiązaniem jest Service Worker przechowujący bazę i serwujący z niej zasoby zamiast każdorazowo odpytywać serwer. W takim wariancie mechanizm może obsługiwać także CSS i JavaScript, pozostając przezroczysty dla skryptów działających w oknie strony. Service Worker może sprawdzać dostępność nowej wersji bazy w tle, aby aktualizacja nie opóźniała bieżącej nawigacji.
 
-To są kierunki do analizy, a nie zatwierdzona architektura. Należy porównać oba warianty pod kątem zgodności z hostingami i przeglądarkami, rozmiaru bazy, strategii cache i aktualizacji, zachowania przy braku sieci oraz poprawnego odświeżania treści. Trzeba też ustalić, czy i jak ta optymalizacja współdziała z pełnymi plikami HTML generowanymi podczas zwykłego buildu.
+Prostszą alternatywą może być wstępne pobieranie plików HTML podstron w tle, gdy przeglądarka nie ma innych pobrań do obsłużenia. Ma to rozgrzać standardowy cache przeglądarki, aby późniejsza nawigacja szybciej wczytywała stronę. Skuteczność zależy od poprawnej konfiguracji cache po stronie serwera — co jest typowe, ale nie gwarantowane — oraz od nagłówków cache i polityki przeglądarki; przeglądarka może też usunąć zapisane zasoby.
+
+To są kierunki do analizy, a nie zatwierdzona architektura. Należy porównać trzy warianty pod kątem zgodności z hostingami i przeglądarkami, rozmiaru bazy, strategii cache i aktualizacji, wpływu na ruch sieciowy, zachowania przy braku sieci oraz poprawnego odświeżania treści. Trzeba też ustalić, czy i jak te optymalizacje współdziałają z pełnymi plikami HTML generowanymi podczas zwykłego buildu.
 
 ### Zależności między szablonami
 
@@ -295,7 +297,7 @@ Potencjalnym wyróżnikiem projektu jest połączenie łatwego, konwersacyjnego 
 - format trwałej wiedzy agenta o projekcie i sposób jej aktualizacji;
 - interfejs API pomiędzy GUI a agentem oraz wybór transportu (np. REST lub WebSocket); SDK samo nie dostarcza gotowego serwera REST;
 - szczegółowy schemat danych szablonów, zagnieżdżonych i współdzielonych fragmentów, zależności, wariantów i nadpisań, w tym reguły składania i wykrywania cykli;
-- czy wdrożyć skompresowaną bazę treści z nawigacją obsługiwaną przez skrypt strony, czy wariant z Service Workerem; wymaga to analizy cache, aktualizacji, rozmiaru, zgodności i trybu offline;
+- czy wdrożyć skompresowaną bazę treści z nawigacją obsługiwaną przez skrypt strony, wariant z Service Workerem, czy wstępne pobieranie HTML do standardowego cache przeglądarki; wymaga to analizy cache, aktualizacji, rozmiaru, zgodności, ruchu sieciowego i trybu offline;
 - reguły i zakres automatycznych testów budowania, responsywności i interakcji;
 - granice snapshotu, obsługa nieudanej lub częściowej iteracji oraz ewentualne odtwarzanie poprzedniej publikacji;
 - limity prób oraz obsługa błędu w workflow lokalizacji;
