@@ -105,6 +105,14 @@ Projekt użytkownika składa się z witryn statycznych. Strona wynikowa może by
 
 Agent zna zasady i konwencje projektu oraz ma instrukcje, jak tworzyć i zmieniać strony, szablony, fragmenty i proces budowania. Może dostosować system budowania do nietypowych potrzeb, a nie tylko wypełniać niezmienny zestaw szablonów.
 
+### Możliwa optymalizacja nawigacji
+
+System budowania może dodatkowo wygenerować skompresowaną bazę danych zawierającą źródła lub treści stron. Skrypt działający w przeglądarce mógłby pobrać tę bazę, zapisać ją w cache, a następnie przechwytywać nawigację do innych stron i generować ich nową zawartość HTML bez oczekiwania na kolejne pobranie strony z serwera. Celem jest niemal natychmiastowe przechodzenie między stronami.
+
+Lepszym alternatywnym rozwiązaniem jest Service Worker przechowujący bazę i serwujący z niej zasoby zamiast każdorazowo odpytywać serwer. W takim wariancie mechanizm może obsługiwać także CSS i JavaScript, pozostając przezroczysty dla skryptów działających w oknie strony. Service Worker może sprawdzać dostępność nowej wersji bazy w tle, aby aktualizacja nie opóźniała bieżącej nawigacji.
+
+To są kierunki do analizy, a nie zatwierdzona architektura. Należy porównać oba warianty pod kątem zgodności z hostingami i przeglądarkami, rozmiaru bazy, strategii cache i aktualizacji, zachowania przy braku sieci oraz poprawnego odświeżania treści. Trzeba też ustalić, czy i jak ta optymalizacja współdziała z pełnymi plikami HTML generowanymi podczas zwykłego buildu.
+
 ### Zależności między szablonami
 
 Witryna może mieć różne typy stron, np. osobny szablon strony głównej i podstron. Poszczególne podstrony mogą korzystać z wariantu szablonu, który celowo modyfikuje układ lub wybrane elementy.
@@ -287,6 +295,7 @@ Potencjalnym wyróżnikiem projektu jest połączenie łatwego, konwersacyjnego 
 - format trwałej wiedzy agenta o projekcie i sposób jej aktualizacji;
 - interfejs API pomiędzy GUI a agentem oraz wybór transportu (np. REST lub WebSocket); SDK samo nie dostarcza gotowego serwera REST;
 - szczegółowy schemat danych szablonów, zagnieżdżonych i współdzielonych fragmentów, zależności, wariantów i nadpisań, w tym reguły składania i wykrywania cykli;
+- czy wdrożyć skompresowaną bazę treści z nawigacją obsługiwaną przez skrypt strony, czy wariant z Service Workerem; wymaga to analizy cache, aktualizacji, rozmiaru, zgodności i trybu offline;
 - reguły i zakres automatycznych testów budowania, responsywności i interakcji;
 - granice snapshotu, obsługa nieudanej lub częściowej iteracji oraz ewentualne odtwarzanie poprzedniej publikacji;
 - limity prób oraz obsługa błędu w workflow lokalizacji;
