@@ -48,6 +48,7 @@ Aplikacja desktopowa oparta na Electronie zapewnia GUI użytkownika i zarządza 
 - wyświetlanie interfejsu rozmowy, historii zmian, pytań agenta i podglądu strony;
 - wybór języka oraz wprowadzenie i bezpieczne przechowywanie danych uwierzytelniających;
 - import wybranych przez użytkownika plików, np. obrazów, do projektu w VM;
+- import i eksport przenośnego pakietu projektu;
 - przekazywanie zatwierdzonych wyników z VM do mechanizmu publikacji;
 - publikację strony przy użyciu narzędzi i poświadczeń dostępnych po stronie hosta.
 
@@ -174,6 +175,14 @@ Do wersjonowania plików projektu należy rozważyć Git lub równoważny mechan
 
 Do rozstrzygnięcia pozostaje granica iteracji (np. jedna tura agenta), zachowanie przy przerwaniu lub błędzie buildu oraz sposób przywrócenia spójnego stanu po częściowej edycji. Snapshot projektu nie cofa skutków zewnętrznej publikacji; przywracanie opublikowanej wersji jest osobną funkcją do zaprojektowania.
 
+### Eksport, import i przenośność projektu
+
+Użytkownik powinien móc wyeksportować i zaimportować kompletny projekt witryny. Pakiet eksportowy ma zachowywać pliki robocze, zasoby, system budowania i jego konfigurację, instrukcje oraz pamięć agenta, poprzednie rozmowy, pliki wynikowe i historię Git. Import do nowszej wersji aplikacji powinien zachować te dane i — jeśli format wymaga zmian — przeprowadzić kontrolowaną migrację.
+
+Projekt powinno dać się otworzyć także jako zwykły workspace w Visual Studio Code z Copilotem albo w Cursorze, aby użytkownik mógł kontynuować rozwój strony. Taki tryb może działać inaczej: zewnętrzny edytor lub agent może nie odtworzyć pamięci, historii rozmów, narzędzi i przepływów specyficznych dla tej aplikacji. Eksport powinien więc zachować instrukcje i istotny kontekst projektu w przenośnej formie, a różnice funkcjonalne należy jasno opisać.
+
+Klucze API, hasła publikacyjne i inne sekrety hosta nie mogą trafiać do pakietu eksportowego. Rozmowy i pliki projektu mogą zawierać dane wrażliwe, dlatego eksport powinien jasno informować użytkownika o jego zawartości.
+
 ## 8. Lokalizacja interfejsu
 
 Domyślnym językiem aplikacji jest angielski. Wszystkie teksty interfejsu zależne od języka powinny mieć jedno, centralne źródło. Wpisy mają być dobrze opisane: stabilny identyfikator, tekst źródłowy, kontekst użycia, wymogi dotyczące długości i placeholderów oraz informację, gdzie tekst jest używany. Referencje do użycia najlepiej generować lub utrzymywać w sposób odporny na zmianę numerów linii kodu.
@@ -273,6 +282,8 @@ Potencjalnym wyróżnikiem projektu jest połączenie łatwego, konwersacyjnego 
 - sposób prezentowania widoku strony i formularzy pytań w GUI;
 - sposób obsługi promptów głosowych: rozpoznawanie mowy lokalnie czy przez usługę zewnętrzną, obsługiwane języki, wymagane zgody i sposób informowania o przetwarzaniu głosu;
 - sposób mapowania tekstu edytowanego w podglądzie na źródło projektu (szablon, fragment lub treść strony), zwłaszcza dla tekstów generowanych lub współdzielonych, oraz obsługa konfliktów z równoległymi zmianami agenta;
+- format pakietu eksportowego, sposób uwzględniania bieżących zmian i metadanych, wersjonowanie formatu oraz polityka migracji do nowszych wersji aplikacji;
+- zakres zgodności projektu z VS Code/Copilot i Cursor, w tym przenośny format instrukcji i pamięci oraz różnice względem działania agenta w aplikacji;
 - format trwałej wiedzy agenta o projekcie i sposób jej aktualizacji;
 - interfejs API pomiędzy GUI a agentem oraz wybór transportu (np. REST lub WebSocket); SDK samo nie dostarcza gotowego serwera REST;
 - szczegółowy schemat danych szablonów, zagnieżdżonych i współdzielonych fragmentów, zależności, wariantów i nadpisań, w tym reguły składania i wykrywania cykli;

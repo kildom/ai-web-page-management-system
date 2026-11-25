@@ -658,3 +658,38 @@ Jest też szczegół specyficzny dla QEMU: `microvm` ma ograniczony sprzęt i pr
 **Najważniejszy test techniczny:** uruchom w docelowym obrazie Chromium headless jako użytkownik niebędący rootem. Dokumentacja Playwright ostrzega, że uruchomienie Chromium jako root wyłącza jego sandbox; zaleca osobnego użytkownika przy odwiedzaniu niezaufanych stron. [Playwright i kontenery](https://playwright.dev/docs/docker) Mimo VM warto oddzielić proces przeglądarki od agenta, bo będzie on czytał także treści stron z internetu.
 
 Na koniec sprawdź `microvm` na każdej docelowej architekturze komputera. Dokumentacja QEMU opisuje ten typ maszyny w sekcji x86; jeśli chcesz wspierać m.in. komputery ARM, wybór architektury i modelu maszyny może wymagać osobnego wariantu.
+
+User: Utworz plik md zawierający szkic opisu projektu na podstawie naszej rozmowy. Nie rób zbyt dużego streszczenia lub uproszczeń. Staraj się zachować wszystkie informacje.
+
+Copilot: Przygotuję szczegółowy szkic opisu projektu jako nowy plik Markdown w katalogu głównym; najpierw sprawdzę, czy nie ma już pliku o tej nazwie lub podobnego dokumentu.
+
+Find files matching `*.md`
+
+Find files matching `**/*.md`
+
+Find files matching `PROJECT_DESCRIPTION.md`
+
+Edit 
+
+Read , lines 1 to 80
+Completed with input: {
+  "path": "/home/dok/my/test-web-ui-ai/PROJECT_DESCRIPTION.md",
+  "view_range": [
+    1,
+    80
+  ]
+}
+
+Added artifact "Opis projektu — szkic"
+Completed with input: {
+  "items": [
+    {
+      "type": "file",
+      "label": "Opis projektu — szkic",
+      "isArtifact": true,
+      "uri": "file:///home/dok/my/test-web-ui-ai/PROJECT_DESCRIPTION.md"
+    }
+  ]
+}
+
+Utworzyłem `PROJECT_DESCRIPTION.md` ze szczegółowym szkicem obejmującym wizję produktu, architekturę, agenta i narzędzia, model szablonów, historię zmian, lokalizację, publikację, bezpieczeństwo oraz kwestie do rozstrzygnięcia.
